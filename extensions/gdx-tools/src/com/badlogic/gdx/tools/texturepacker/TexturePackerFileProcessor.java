@@ -152,10 +152,12 @@ public class TexturePackerFileProcessor extends FileProcessor {
 		while (true) {
 			settings = dirToSettings.get(parent);
 			if (settings != null) break;
-			if (parent.equals(root)) break;
+			if (parent == null || parent.equals(root)) break;
 			parent = parent.getParentFile();
 		}
 		if (settings == null) settings = defaultSettings;
+
+		if (settings.ignore) return;
 
 		if (settings.combineSubdirectories) {
 			// Collect all files under subdirectories and ignore subdirectories so they won't be packed twice.
